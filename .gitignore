@@ -1,0 +1,47 @@
+# Ignora cartelle di build
+/Debug/
+/Release/
+
+# Ignora file temporanei e di sistema IDE
+.metadata/
+#/.settings/
+
+# Ignora file temporanei del sistema operativo
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignora file binari e oggetti
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+
+# Ignora file di output del linker generati
+*.lst
+*.d
+
+# Ignora file di configurazione temporanei
+*.launch
+
+# Mantieni
+!.ioc        # file di configurazione STM32CubeMX
+!.cproject   # configurazione progetto STM32CubeIDE
+!.project    # configurazione progetto STM32CubeIDE
+
+# Tieni sotto controllo
+Drivers/
+Middlewares/
+Core/
+Inc/
+Src/
+*.ld        # file linker script (se personalizzato)
+
+# Ignora cartelle di backup
+Core/Inc/Backup
+Core/Src/Backup
+
+/portigconf/
+.settings/language.settings.xml

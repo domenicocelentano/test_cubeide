@@ -40,8 +40,10 @@ extern TIM_HandleTypeDef htim1;
 
 void MX_TIM1_Init(void);
 
-/* USER CODE BEGIN Prototypes */
 
+
+/* USER CODE BEGIN Prototypes */
+uint16_t tim1_drv_get_value(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

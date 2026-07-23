@@ -226,6 +226,11 @@ void EXTI15_10_IRQHandler(void)
   /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
+
 /* USER CODE BEGIN 1 */
+void FLASH_IRQHandler(void)
+{
+    HAL_FLASH_IRQHandler();
+}
 
 /* USER CODE END 1 */

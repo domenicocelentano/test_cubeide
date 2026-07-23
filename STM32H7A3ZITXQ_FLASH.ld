@@ -44,7 +44,9 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
   ITCMRAM (xrw)  : ORIGIN = 0x00000000, LENGTH = 64K
-  FLASH (rx)     : ORIGIN = 0x08000000, LENGTH = 2048K
+  /*FLASH (rx)     : ORIGIN = 0x08000000, LENGTH = 2048K*/
+  FLASH (rx)     : ORIGIN = 0x08000000, LENGTH = 2040K		/* Ridotta da 2048: -8K per VEEPROM */ 
+  VEEPROM(rw)	 : ORIGIN = 0x081FE000, LENGTH = 8K			/* Ultimo settore fisico */
   DTCMRAM1 (xrw) : ORIGIN = 0x20000000, LENGTH = 64K
   DTCMRAM2 (xrw) : ORIGIN = 0x20010000, LENGTH = 64K
   RAM (xrw)      : ORIGIN = 0x24000000, LENGTH = 1024K
@@ -122,6 +124,18 @@ SECTIONS
     KEEP (*(.fini_array*))
     PROVIDE_HIDDEN (__fini_array_end = .);
   } >FLASH
+
+  .VEEPROMSEG :
+  {
+	. = ALIGN(4);
+	__start_VEEPROMSEG = .;		/* simbolo per inizio (Start) */
+	
+	KEEP(*(.VEEPROMSEG))
+	
+	__stop_VEEPROMSEG = .-1;	/* Simbolo per la fine (End) */ 
+  
+  } > VEEPROM
+
 
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);

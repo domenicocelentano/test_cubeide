@@ -24,6 +24,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "flash_veeprom_test.h"
+#include "tim1_drv.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -139,14 +142,19 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_Base_Start_IT(&htim1);
 
   printf("CR1  = %08lX\r\n", TIM1->CR1);
   printf("DIER = %08lX\r\n", TIM1->DIER);
   printf("SR   = %08lX\r\n", TIM1->SR);
   printf("CCER = %08lX\r\n", TIM1->CCER);
 
+  //flash_veeprom_test();
+
   while (1)
   {
+	  HAL_Delay(10);
+	  printf("%5d\n", tim1_drv_get_value());
 
     /* -- Sample board code for User push-button in interrupt mode ---- */
     if (BspButtonState == BUTTON_PRESSED)

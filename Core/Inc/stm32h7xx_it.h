@@ -58,6 +58,7 @@ void SysTick_Handler(void);
 void TIM1_CC_IRQHandler(void);
 void EXTI15_10_IRQHandler(void);
 /* USER CODE BEGIN EFP */
+void FLASH_IRQHandler(void);
 
 /* USER CODE END EFP */
 
