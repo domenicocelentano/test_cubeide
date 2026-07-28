@@ -32,8 +32,8 @@
 !.project    # configurazione progetto STM32CubeIDE
 
 # Tieni sotto controllo
-Drivers/
-Middlewares/
+#Drivers/
+#Middlewares/
 #Core/
 #Inc/
 #Src/
