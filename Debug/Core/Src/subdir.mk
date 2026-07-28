@@ -9,6 +9,7 @@ C_SRCS += \
 ../Core/Src/flash_veeprom_test.c \
 ../Core/Src/gpio.c \
 ../Core/Src/main.c \
+../Core/Src/sp110_drv.c \
 ../Core/Src/stm32h7xx_hal_msp.c \
 ../Core/Src/stm32h7xx_it.c \
 ../Core/Src/syscalls.c \
@@ -22,6 +23,7 @@ OBJS += \
 ./Core/Src/flash_veeprom_test.o \
 ./Core/Src/gpio.o \
 ./Core/Src/main.o \
+./Core/Src/sp110_drv.o \
 ./Core/Src/stm32h7xx_hal_msp.o \
 ./Core/Src/stm32h7xx_it.o \
 ./Core/Src/syscalls.o \
@@ -35,6 +37,7 @@ C_DEPS += \
 ./Core/Src/flash_veeprom_test.d \
 ./Core/Src/gpio.d \
 ./Core/Src/main.d \
+./Core/Src/sp110_drv.d \
 ./Core/Src/stm32h7xx_hal_msp.d \
 ./Core/Src/stm32h7xx_it.d \
 ./Core/Src/syscalls.d \
@@ -51,7 +54,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/flash_veeprom.cyclo ./Core/Src/flash_veeprom.d ./Core/Src/flash_veeprom.o ./Core/Src/flash_veeprom.su ./Core/Src/flash_veeprom_test.cyclo ./Core/Src/flash_veeprom_test.d ./Core/Src/flash_veeprom_test.o ./Core/Src/flash_veeprom_test.su ./Core/Src/gpio.cyclo ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32h7xx_hal_msp.cyclo ./Core/Src/stm32h7xx_hal_msp.d ./Core/Src/stm32h7xx_hal_msp.o ./Core/Src/stm32h7xx_hal_msp.su ./Core/Src/stm32h7xx_it.cyclo ./Core/Src/stm32h7xx_it.d ./Core/Src/stm32h7xx_it.o ./Core/Src/stm32h7xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32h7xx.cyclo ./Core/Src/system_stm32h7xx.d ./Core/Src/system_stm32h7xx.o ./Core/Src/system_stm32h7xx.su ./Core/Src/tim.cyclo ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/tim.su ./Core/Src/tim1_drv.cyclo ./Core/Src/tim1_drv.d ./Core/Src/tim1_drv.o ./Core/Src/tim1_drv.su
+	-$(RM) ./Core/Src/flash_veeprom.cyclo ./Core/Src/flash_veeprom.d ./Core/Src/flash_veeprom.o ./Core/Src/flash_veeprom.su ./Core/Src/flash_veeprom_test.cyclo ./Core/Src/flash_veeprom_test.d ./Core/Src/flash_veeprom_test.o ./Core/Src/flash_veeprom_test.su ./Core/Src/gpio.cyclo ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/sp110_drv.cyclo ./Core/Src/sp110_drv.d ./Core/Src/sp110_drv.o ./Core/Src/sp110_drv.su ./Core/Src/stm32h7xx_hal_msp.cyclo ./Core/Src/stm32h7xx_hal_msp.d ./Core/Src/stm32h7xx_hal_msp.o ./Core/Src/stm32h7xx_hal_msp.su ./Core/Src/stm32h7xx_it.cyclo ./Core/Src/stm32h7xx_it.d ./Core/Src/stm32h7xx_it.o ./Core/Src/stm32h7xx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32h7xx.cyclo ./Core/Src/system_stm32h7xx.d ./Core/Src/system_stm32h7xx.o ./Core/Src/system_stm32h7xx.su ./Core/Src/tim.cyclo ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/tim.su ./Core/Src/tim1_drv.cyclo ./Core/Src/tim1_drv.d ./Core/Src/tim1_drv.o ./Core/Src/tim1_drv.su
 
 .PHONY: clean-Core-2f-Src
 

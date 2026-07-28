@@ -663,6 +663,181 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 ./Core/Src/main.o
  .debug_macro   0x00000000      0x170 ./Core/Src/main.o
  .debug_macro   0x00000000       0x34 ./Core/Src/main.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .group         0x00000000        0xc ./Core/Src/sp110_drv.o
+ .text          0x00000000        0x0 ./Core/Src/sp110_drv.o
+ .data          0x00000000        0x0 ./Core/Src/sp110_drv.o
+ .bss           0x00000000        0x0 ./Core/Src/sp110_drv.o
+ .text.SP_SetRange
+                0x00000000       0x32 ./Core/Src/sp110_drv.o
+ .text.SP_SetBandwidth
+                0x00000000       0x36 ./Core/Src/sp110_drv.o
+ .text.SP_SetAutoZeroEnable
+                0x00000000       0x38 ./Core/Src/sp110_drv.o
+ .text.SP_SetAutoZeroMode
+                0x00000000       0x38 ./Core/Src/sp110_drv.o
+ .text.SP_SetNoiseSuppression
+                0x00000000       0x38 ./Core/Src/sp110_drv.o
+ .text.SP_GetRange
+                0x00000000       0x1e ./Core/Src/sp110_drv.o
+ .rodata.sp_range_tenths
+                0x00000000        0x8 ./Core/Src/sp110_drv.o
+ .text.SP_GetRangeTenths
+                0x00000000       0x24 ./Core/Src/sp110_drv.o
+ .text.SP_Init  0x00000000       0xc6 ./Core/Src/sp110_drv.o
+ .text.SP_ApplyMode
+                0x00000000       0x52 ./Core/Src/sp110_drv.o
+ .text.SP_StartRead
+                0x00000000       0x50 ./Core/Src/sp110_drv.o
+ .text.SP_DataReady
+                0x00000000       0x1a ./Core/Src/sp110_drv.o
+ .text.SP_IsReady
+                0x00000000       0x22 ./Core/Src/sp110_drv.o
+ .text.SP_GetRawPressure
+                0x00000000       0x1a ./Core/Src/sp110_drv.o
+ .text.SP_GetPressure_inH2Ox10000
+                0x00000000       0x3c ./Core/Src/sp110_drv.o
+ .text.SP_I2C_TxCpltCallback
+                0x00000000       0x1a ./Core/Src/sp110_drv.o
+ .text.SP_I2C_RxCpltCallback
+                0x00000000       0x38 ./Core/Src/sp110_drv.o
+ .text.SP_I2C_ErrorCallback
+                0x00000000       0x20 ./Core/Src/sp110_drv.o
+ .debug_info    0x00000000      0xc4a ./Core/Src/sp110_drv.o
+ .debug_abbrev  0x00000000      0x225 ./Core/Src/sp110_drv.o
+ .debug_aranges
+                0x00000000       0xa0 ./Core/Src/sp110_drv.o
+ .debug_rnglists
+                0x00000000       0x74 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x2b1 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0xafc ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x238 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x2e ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x42 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x22 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x8e ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x51 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x103 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x6a ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x1df ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x1c ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x22 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0xfb ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000     0x1305 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x11f ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x27 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000    0x1ebe7 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x6d ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000     0x3d80 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x190 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x74 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x29 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x3c ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x34 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x370 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x16 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x4a ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x34 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x10 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x58 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x1e5 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x19b ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x5d ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000     0x24ee ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000     0x103a ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x154 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x114 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x3d5 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0xac ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x70a ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x20c ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x66 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x3c9 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x3eb ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x275 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x6c8 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x520 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x58 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x4a ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x22c ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x67 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0xa5 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x1bd ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x2dc ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x35 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0xb24 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x29f ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x693 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0xa6 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000      0x5ca ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x22 ./Core/Src/sp110_drv.o
+ .debug_macro   0x00000000       0x10 ./Core/Src/sp110_drv.o
+ .debug_line    0x00000000      0xa34 ./Core/Src/sp110_drv.o
+ .debug_str     0x00000000   0x13a4d2 ./Core/Src/sp110_drv.o
+ .comment       0x00000000       0x44 ./Core/Src/sp110_drv.o
+ .debug_frame   0x00000000      0x2a8 ./Core/Src/sp110_drv.o
+ .ARM.attributes
+                0x00000000       0x32 ./Core/Src/sp110_drv.o
  .group         0x00000000        0xc ./Core/Src/stm32h7xx_hal_msp.o
  .group         0x00000000        0xc ./Core/Src/stm32h7xx_hal_msp.o
  .group         0x00000000        0xc ./Core/Src/stm32h7xx_hal_msp.o
@@ -5960,6 +6135,7 @@ LOAD ./Core/Src/flash_veeprom.o
 LOAD ./Core/Src/flash_veeprom_test.o
 LOAD ./Core/Src/gpio.o
 LOAD ./Core/Src/main.o
+LOAD ./Core/Src/sp110_drv.o
 LOAD ./Core/Src/stm32h7xx_hal_msp.o
 LOAD ./Core/Src/stm32h7xx_it.o
 LOAD ./Core/Src/syscalls.o

@@ -34,10 +34,10 @@
 # Tieni sotto controllo
 Drivers/
 Middlewares/
-Core/
-Inc/
-Src/
-*.ld        # file linker script (se personalizzato)
+#Core/
+#Inc/
+#Src/
+#*.ld        # file linker script (se personalizzato)
 
 # Ignora cartelle di backup
 Core/Inc/Backup
