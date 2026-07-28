@@ -1,6 +1,7 @@
 "./Core/Src/flash_veeprom.o"
 "./Core/Src/flash_veeprom_test.o"
 "./Core/Src/gpio.o"
+"./Core/Src/i2c.o"
 "./Core/Src/main.o"
 "./Core/Src/sp110_drv.o"
 "./Core/Src/stm32h7xx_hal_msp.o"

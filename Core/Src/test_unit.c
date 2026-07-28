@@ -11,6 +11,7 @@
 
 
 #include "main.h"
+#include "i2c.h"
 #include "test_unit.h"
 
 #include "sp110_drv.h"
