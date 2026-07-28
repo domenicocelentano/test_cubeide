@@ -98,6 +98,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -141,6 +142,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_TIM_Base_Start(&htim2);
+
   HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim1);
 
@@ -151,10 +154,41 @@ int main(void)
 
   //flash_veeprom_test();
 
+  printf("%llu\r\n", 52345678913ULL);
+
   while (1)
   {
-	  HAL_Delay(10);
-	  printf("%5d\n", tim1_drv_get_value());
+#if 0
+	  uint64_t val;
+
+	  if (tim1_drv_get_value(&val) == 1)
+	  {
+		  printf("%llu\n", val);
+	  }
+#endif
+
+
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_RESET);
+
+	  DBG dbg;
+
+	  if ( dbg_pop(&dbg) )
+	  {
+		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_SET);
+
+		  printf("%5u ", dbg.id);
+		  printf("%2u ", dbg.type);
+		  printf("%12lu ", dbg.time2);
+		  printf("%6u ", dbg.time1);
+		  printf("%6u ", dbg.ovf);
+		  printf("%12llu ", dbg.time1_ovf);
+		  printf("%12llu ", dbg.period);
+		  printf("%6lu ", dbg.backlog);
+		  printf("%6lu ", dbg_count());
+		  printf("%6lu\n ", dbg_get_overflow());
+
+		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_RESET);
+	  }
 
     /* -- Sample board code for User push-button in interrupt mode ---- */
     if (BspButtonState == BUTTON_PRESSED)

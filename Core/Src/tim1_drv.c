@@ -7,18 +7,60 @@
 
 #include "main.h"
 #include "tim.h"
+#include "tim1_drv.h"
 
 
-#define LEN 2000
+typedef struct _tag_turb
+{
+	uint16_t cc;
+	uint64_t cp;
+	uint64_t time;
+	uint16_t ovf;
+}TURB;
 
-static volatile uint16_t turb[LEN];
+
+
+
+static DBG_RING dbg_ring;
+
+#define LEN 1000
+
+static volatile TURB turb[LEN];
 static volatile uint16_t pw = 0;
+static volatile uint16_t pr = 0;
 
-// Variabili globali/statiche per la gestione dei tempi
 volatile uint32_t overflow_count = 0;
-volatile uint64_t last_capture_tick = 0;
-volatile uint64_t signal_period_ticks = 0;
 volatile uint8_t  is_first_capture = 1; // Flag per gestire la prima misura
+volatile uint64_t last_capture;
+
+volatile DBG dbg[2048];
+volatile uint32_t pw_dbg = 0;
+volatile uint32_t pr_dbg = 0;
+volatile uint32_t id = 0;
+
+
+void dbg_push_isr(const DBG *src);
+
+uint32_t dbg_count(void)
+{
+	return dbg_ring.wr - dbg_ring.rd;
+}
+
+static inline uint32_t dbg_empty(void)
+{
+	return dbg_ring.wr == dbg_ring.rd;
+}
+
+static inline uint32_t dbg_full(void)
+{
+	return (dbg_ring.wr - dbg_ring.wr >= DBG_SIZE);
+}
+
+uint32_t dbg_get_overflow(void)
+{
+	return dbg_ring.overflow_cnt;
+}
+
 
 // ----------------------------------------------------------------------------
 // Callback eseguito su TIM1_UP_IRQHandler (Overflow / Update)
@@ -28,7 +70,66 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == TIM1)
     {
         overflow_count++;
+
+        DBG dbg;
+        dbg.id	= id++;
+        dbg.type = 0x01;
+        dbg.ovf = overflow_count;
+        dbg.time1 = TIM1->CNT;
+        dbg.time2 = TIM2->CNT;
+        dbg.time1_ovf = 0;
+        dbg.period = 0x00;
+        dbg.backlog = dbg_count();
+
+        dbg_push_isr(&dbg);
     }
+    else if (htim->Instance == TIM2)
+    {
+    	;
+    }
+}
+
+
+void dbg_push_isr(const DBG *src)
+{
+    uint32_t wr = dbg_ring.wr;
+    uint32_t rd = dbg_ring.rd;
+    uint32_t pending = wr -rd;
+
+    if ( dbg_full() ==  1 )		return;
+
+    /* buffer pieno */
+    if ((wr - rd) >= DBG_SIZE)
+    {
+    	dbg_ring.overflow_cnt++;
+        return;
+    }
+
+    dbg_ring.buffer[wr & DBG_MASK] = *src;
+
+    __DMB();
+
+    dbg_ring.wr = wr + 1;
+
+    if (pending > dbg_ring.max_pending)
+    {
+    	dbg_ring.max_pending = pending;
+    }
+}
+
+uint16_t dbg_pop(DBG *item)
+{
+	uint32_t rd = dbg_ring.rd;
+
+	if (dbg_empty() ==  1 )	return 0;
+
+	*item = dbg_ring.buffer[rd & DBG_MASK];
+
+	__DMB();
+
+	dbg_ring.rd = rd + 1;
+
+	return 1;
 }
 
 // ----------------------------------------------------------------------------
@@ -36,66 +137,39 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 // ----------------------------------------------------------------------------
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-    if (htim->Instance == TIM1 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+    if (htim->Instance == TIM1 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
+    {
+    	uint32_t ccr = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 
-        // 1. Lettura immediata del registro di Capture e dell'Overflow attuale
-        uint32_t ccr = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-        uint32_t current_overflow = overflow_count;
+    	uint64_t current_capture = ((uint64_t)overflow_count * ((uint64_t)htim->Instance->ARR + 1)) + ccr;
 
-        // 2. Correzione della Race Condition tra Overflow e Capture
-        // Se UIF è pendente e il CCR è molto basso, l'overflow si è verificato
-        // un istante prima della capture ma l'ISR di Overflow non ha ancora incrementato
-        // la variabile `overflow_count`.
-        if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_UPDATE) != RESET) {
-            if (ccr < (htim->Instance->ARR / 2)) {
-                current_overflow++;
-            }
-        }
+    	uint64_t period = current_capture - last_capture;
 
-        // 3. Calcolo del tempo assoluto corrente espressi in tick totali
-        uint64_t current_capture_tick = ((uint64_t)current_overflow * ((uint64_t)htim->Instance->ARR + 1)) + ccr;
+    	last_capture = current_capture;
 
-        // 4. Gestione della Prima Volta vs Calcolo del Periodo
+    	DBG dbg;
+    	dbg.id			= id++;
+        dbg.type		= 0x00;
+        dbg.ovf			= overflow_count;
+        dbg.time1		= TIM1->CNT;
+        dbg.time2		= TIM2->CNT;
+        dbg.time1_ovf	= current_capture;
+        dbg.period		= period;
+        dbg.backlog		= dbg_count();
+
+        dbg_push_isr(&dbg);
+
+static uint16_t count = 0;
+
+	if (count++ >= 10 )
+	{
+		count = 0;
+	}
         if (is_first_capture)
         {
-            // Primo fronte: salviamo il riferimento senza calcolare il periodo
-            last_capture_tick = current_capture_tick;
+        	last_capture = current_capture;
             is_first_capture = 0;
             return;
         }
-        else
-        {
-            // Fronti successivi: calcoliamo il periodo come differenza
-            signal_period_ticks = current_capture_tick - last_capture_tick;
-
-            // Aggiorniamo il timestamp precedente per la prossima misura
-            last_capture_tick = current_capture_tick;
-
-            // Optional: qui puoi convertire il periodo in microsecondi
-            // float period_us = (float)signal_period_ticks * 3.2f;
-        }
-
-uint16_t signal_periodic_16;
-
-        if (signal_period_ticks > 0xFFFF)
-        {
-        	signal_periodic_16 = 0xFFFf;
-        }
-        else
-        {
-        	signal_periodic_16 = (uint16_t) signal_period_ticks;
-        }
-
-        turb[pw++] = signal_periodic_16;
-
-        if (pw >= LEN)
-        {
-        	pw = 0;
-        }
     }
-}
-
-uint16_t tim1_drv_get_value(void)
-{
-	return turb[pw-2];
 }
