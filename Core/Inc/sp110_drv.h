@@ -33,7 +33,7 @@
 
 /* Indirizzo di default (piedino SCK a massa -> 0x28 su 7 bit).
  * La HAL richiede l'indirizzo gia' shiftato a 8 bit. */
-#define SP_I2C_ADDR_DEFAULT   ((uint16_t)(0x28U << 1))
+#define SP_I2C_ADDR_DEFAULT   ((uint16_t)(0x30U << 1))
 
 /* Denominatore di Eq.1: round(0.9 * 32768) */
 #define SP_PRESSURE_DENOM     29491U
