@@ -5,6 +5,15 @@
 
 #include "sp110_drv.h"
 
+
+
+void receive_callback(I2C_HandleTypeDef *hi2c)
+{
+
+}
+
+
+
 /* Fondo scala in decimi di pollice per codice di range (bit 0-1 del
  * Mode Register): 10,20,50,100 => 1.0, 2.0, 5.0, 10.0 inH2O. */
 static const uint16_t sp_range_tenths[4] = { 10U, 20U, 50U, 100U };
@@ -20,6 +29,8 @@ SP_Status_t SP_Init(SP_Handle_t *h, I2C_HandleTypeDef *hi2c, uint16_t i2c_addr,
     if ((h == NULL) || (hi2c == NULL)) {
         return SP_ERROR;
     }
+
+    HAL_I2C_RegisterCallback(hi2c, HAL_I2C_MASTER_RX_COMPLETE_CB_ID, receive_callback);
 
     h->hi2c         = hi2c;
     h->addr         = i2c_addr;

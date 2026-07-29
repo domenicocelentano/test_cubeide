@@ -27,6 +27,7 @@
 
 #include "flash_veeprom_test.h"
 #include "tim1_drv.h"
+#include "test_unit.h"
 
 /* USER CODE END Includes */
 
@@ -157,6 +158,9 @@ int main(void)
   //flash_veeprom_test();
 
   printf("%llu\r\n", 52345678913ULL);
+
+  test_unit_init();
+
 
   while (1)
   {
