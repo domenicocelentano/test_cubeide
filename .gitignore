@@ -1,47 +1,66 @@
-# Ignora cartelle di build
-/Debug/
-/Release/
+###############################################################################
+# STM32CubeIDE - Build output
+###############################################################################
 
-# Ignora file temporanei e di sistema IDE
-.metadata/
-#/.settings/
+Debug/
+Release/
+portingconf/
+build/
 
-# Ignora file temporanei del sistema operativo
-*.log
-*.tmp
-*.bak
-*.swp
+###############################################################################
+# Object and dependency files
+###############################################################################
 
-# Ignora file binari e oggetti
 *.o
-*.elf
-*.bin
-*.hex
-*.map
-
-# Ignora file di output del linker generati
-*.lst
 *.d
+*.su
+*.lst
+*.list
+*.map
+*.elf
+*.hex
+*.bin
+*.srec
+*.crc
 
-# Ignora file di configurazione temporanei
-*.launch
+###############################################################################
+# Eclipse / STM32CubeIDE generated files
+###############################################################################
 
-# Mantieni
-!.ioc        # file di configurazione STM32CubeMX
-!.cproject   # configurazione progetto STM32CubeIDE
-!.project    # configurazione progetto STM32CubeIDE
+.metadata/
 
-# Tieni sotto controllo
-#Drivers/
-#Middlewares/
-#Core/
-#Inc/
-#Src/
-#*.ld        # file linker script (se personalizzato)
+###############################################################################
+# User specific settings
+###############################################################################
 
-# Ignora cartelle di backup
-Core/Inc/Backup
-Core/Src/Backup
-
-/portigconf/
 .settings/language.settings.xml
+
+###############################################################################
+# Backup files
+###############################################################################
+
+*~
+*.bak
+*.orig
+
+###############################################################################
+# OS files
+###############################################################################
+
+.DS_Store
+Thumbs.db
+
+###############################################################################
+# Temporary editor files
+###############################################################################
+
+*.swp
+*.swo
+
+###############################################################################
+# CMake (if ever used)
+###############################################################################
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
