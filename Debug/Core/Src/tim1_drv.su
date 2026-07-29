@@ -1,8 +1,0 @@
-../Core/Src/tim1_drv.c:44:10:dbg_count	4	static
-../Core/Src/tim1_drv.c:49:24:dbg_empty	4	static
-../Core/Src/tim1_drv.c:54:24:dbg_full	4	static
-../Core/Src/tim1_drv.c:59:10:dbg_get_overflow	4	static
-../Core/Src/tim1_drv.c:68:6:HAL_TIM_PeriodElapsedCallback	56	static
-../Core/Src/tim1_drv.c:93:6:dbg_push_isr	40	static,ignoring_inline_asm
-../Core/Src/tim1_drv.c:120:10:dbg_pop	32	static,ignoring_inline_asm
-../Core/Src/tim1_drv.c:138:6:HAL_TIM_IC_CaptureCallback	136	static
