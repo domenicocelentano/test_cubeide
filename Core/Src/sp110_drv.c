@@ -6,12 +6,39 @@
 #include "sp110_drv.h"
 
 
+static SP_Handle_t *sp_instance = NULL;
+
+
 
 void receive_callback(I2C_HandleTypeDef *hi2c)
 {
+	(void) hi2c;
 
+	if (sp_instance != NULL)
+	{
+		SP_I2C_RxCpltCallback(sp_instance);
+	}
 }
 
+void transmit_callback(I2C_HandleTypeDef *hi2c)
+{
+	(void) hi2c;
+
+	if (sp_instance != NULL)
+	{
+		SP_I2C_TxCpltCallback(sp_instance);
+	}
+}
+
+void error_callback(I2C_HandleTypeDef *hi2c)
+{
+	(void) hi2c;
+
+	if (sp_instance != NULL)
+	{
+		SP_I2C_ErrorCallback(sp_instance);
+	}
+}
 
 
 /* Fondo scala in decimi di pollice per codice di range (bit 0-1 del
@@ -30,7 +57,11 @@ SP_Status_t SP_Init(SP_Handle_t *h, I2C_HandleTypeDef *hi2c, uint16_t i2c_addr,
         return SP_ERROR;
     }
 
+    sp_instance = h;
+
     HAL_I2C_RegisterCallback(hi2c, HAL_I2C_MASTER_RX_COMPLETE_CB_ID, receive_callback);
+    HAL_I2C_RegisterCallback(hi2c, HAL_I2C_MASTER_TX_COMPLETE_CB_ID, transmit_callback);
+    HAL_I2C_RegisterCallback(hi2c, HAL_I2C_ERROR_CB_ID, error_callback);
 
     h->hi2c         = hi2c;
     h->addr         = i2c_addr;

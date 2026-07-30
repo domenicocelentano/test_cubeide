@@ -159,8 +159,7 @@ int main(void)
 
   printf("%llu\r\n", 52345678913ULL);
 
-  test_unit_init();
-
+  test_unit_sp110();
 
   while (1)
   {

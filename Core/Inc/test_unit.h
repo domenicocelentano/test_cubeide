@@ -9,5 +9,7 @@
 #define INC_TEST_UNIT_H_
 
 
+extern void test_unit_sp110(void);
+
 
 #endif /* INC_TEST_UNIT_H_ */
