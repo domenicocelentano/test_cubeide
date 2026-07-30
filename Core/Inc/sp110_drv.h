@@ -85,6 +85,10 @@ typedef struct {
     uint32_t           ready_tick; /* tick oltre il quale i filtri sono assestati */
 } SP_Handle_t;
 
+
+uint16_t SP_reg_callback( void (*sp_cb) (SP_Handle_t *sp));
+
+
 /* ---- Modifica campi del Mode Register (solo RAM, non inviano nulla) ---- */
 
 static inline void SP_SetRange(SP_Handle_t *h, SP_Range_t range)
