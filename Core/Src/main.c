@@ -102,6 +102,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_I2C1_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -159,7 +160,7 @@ int main(void)
 
   printf("%llu\r\n", 52345678913ULL);
 
-  test_unit_sp110();
+  test_unit();
 
   while (1)
   {

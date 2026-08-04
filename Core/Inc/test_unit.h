@@ -8,8 +8,12 @@
 #ifndef INC_TEST_UNIT_H_
 #define INC_TEST_UNIT_H_
 
+typedef enum
+{
+	TU_OK=0,
+	TU_ERROR
+}TU_status_t;
 
-extern void test_unit_sp110(void);
-
+extern void  test_unit	(void);
 
 #endif /* INC_TEST_UNIT_H_ */

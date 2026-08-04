@@ -5,7 +5,8 @@
 
 #include "sp110_drv.h"
 
-static SP_Handle_t *sp_instance = NULL;
+static SP_Handle_t *sp_instance = NULL;		/* un solo sensore nel progetto */
+
 
 void receive_callback(I2C_HandleTypeDef *hi2c)
 {
@@ -54,9 +55,20 @@ SP_Status_t SP_Init(SP_Handle_t *h, I2C_HandleTypeDef *hi2c, uint16_t i2c_addr, 
 
     sp_instance = h;
 
-    HAL_I2C_RegisterCallback(hi2c, HAL_I2C_MASTER_RX_COMPLETE_CB_ID, receive_callback);
-    HAL_I2C_RegisterCallback(hi2c, HAL_I2C_MASTER_TX_COMPLETE_CB_ID, transmit_callback);
-    HAL_I2C_RegisterCallback(hi2c, HAL_I2C_ERROR_CB_ID, error_callback);
+    if (HAL_I2C_RegisterCallback(hi2c, HAL_I2C_MASTER_RX_COMPLETE_CB_ID, receive_callback) != HAL_OK)
+    {
+    	Error_Handler();
+    }
+
+    if (HAL_I2C_RegisterCallback(hi2c, HAL_I2C_MASTER_TX_COMPLETE_CB_ID, transmit_callback) != HAL_OK)
+    {
+    	Error_Handler();
+    }
+
+    if ( HAL_I2C_RegisterCallback(hi2c, HAL_I2C_ERROR_CB_ID, error_callback) != HAL_OK)
+    {
+    	Error_Handler();
+    }
 
     h->hi2c         = hi2c;
     h->addr         = i2c_addr;
@@ -71,7 +83,7 @@ SP_Status_t SP_Init(SP_Handle_t *h, I2C_HandleTypeDef *hi2c, uint16_t i2c_addr, 
     SP_SetBandwidth(h, bw);
     SP_SetAutoZeroEnable(h, false);
     SP_SetAutoZeroMode(h, SP_AZ_STANDARD);
-    SP_SetNoiseSuppression(h, true);
+    SP_SetNoiseSuppression(h, false);
 
     /* Mode Register + Rate Register (auto-select = 0x00), scritti insieme:
      * il Rate Register va impostato una sola volta, qui. */
@@ -125,7 +137,9 @@ SP_Status_t SP_StartRead(SP_Handle_t *h)
 
 bool SP_DataReady(SP_Handle_t *h)
 {
-    return h->data_ready;
+	bool ret = h->data_ready;
+	h->data_ready = false;
+    return ret;
 }
 
 bool SP_IsReady(SP_Handle_t *h)
