@@ -103,6 +103,7 @@ int main(void)
   MX_TIM2_Init();
   MX_I2C1_Init();
   MX_TIM7_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -135,7 +136,7 @@ int main(void)
     }
 
   /* -- Sample board code to send message over COM1 port ---- */
-  printf("Welcome to STM32 world !\n\r");
+  //printf("Welcome to STM32 world !\n\r");
 
   /* -- Sample board code to switch on leds ---- */
   BSP_LED_On(LED_GREEN);
@@ -150,15 +151,13 @@ int main(void)
 
   HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim1);
-
+#if 0
   printf("CR1  = %08lX\r\n", TIM1->CR1);
   printf("DIER = %08lX\r\n", TIM1->DIER);
   printf("SR   = %08lX\r\n", TIM1->SR);
   printf("CCER = %08lX\r\n", TIM1->CCER);
-
+#endif
   //flash_veeprom_test();
-
-  printf("%llu\r\n", 52345678913ULL);
 
   test_unit();
 

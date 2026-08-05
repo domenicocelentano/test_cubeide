@@ -77,7 +77,7 @@ SP_Status_t SP_Init(SP_Handle_t *h, I2C_HandleTypeDef *hi2c, uint16_t i2c_addr, 
     h->xfer_error   = false;
     h->raw_pressure = 0;
 
-    /* Configurazione di default: AZ disabilitato, soppressione rumore attiva */
+    /* Configurazione di default: AZ disabilitato, soppressione rumore disattivato */
     h->mode_reg = 0;
     SP_SetRange(h, range);
     SP_SetBandwidth(h, bw);
@@ -98,6 +98,11 @@ SP_Status_t SP_Init(SP_Handle_t *h, I2C_HandleTypeDef *hi2c, uint16_t i2c_addr, 
     h->ready_tick = HAL_GetTick() + 60U;
 
     return SP_OK;
+}
+
+SP_Status_t SP_GetStatus(SP_Handle_t *h)
+{
+	return h->xfer_busy;
 }
 
 SP_Status_t SP_ApplyMode(SP_Handle_t *h)

@@ -15,6 +15,8 @@
 
 #include "test_unit.h"
 
+
+static volatile uint32_t test_autozero = 0;
 static volatile uint32_t ms_tick = 0;
 
 void periodic_elapsed		(TIM_HandleTypeDef *htim);
@@ -24,8 +26,24 @@ void test_unit_sp110		(void);
 static SP_Handle_t sp;
 
 
+
+
+static inline void delay_us(uint16_t us)
+{
+    // azzera il contatore
+    __HAL_TIM_SET_COUNTER(&htim6, 0);
+
+    // attendi fino a quando il contatore raggiunge us
+    while (__HAL_TIM_GET_COUNTER(&htim6) < us)
+    {
+        // loop di attesa
+    }
+}
+
 void test_unit_init(void)
 {
+	HAL_TIM_Base_Start(&htim6);
+
 	if (HAL_TIM_RegisterCallback(&htim7, HAL_TIM_PERIOD_ELAPSED_CB_ID, &periodic_elapsed) != HAL_OK)
 	{
 		Error_Handler();
@@ -60,6 +78,7 @@ void test_unit_sp110_init(void)
 	}
 }
 
+extern __IO uint32_t BspButtonState;
 
 void test_unit_sp110(void)
 {
@@ -75,112 +94,73 @@ void test_unit_sp110(void)
 			raw  = SP_GetRawPressure(&sp);
 			p10k = SP_GetPressure_inH2Ox10000(&sp); /* parti su 10000 del FS corrente */
 
-			printf("raw:%6hd inH20:%5i\n", raw, p10k);
-
-			if (count++ >= 20)
+			if (test_autozero == 1)
 			{
-				HAL_GPIO_WritePin(GPIOE, GPIO_PIN_8, GPIO_PIN_SET);
-
-				SP_SetAutoZeroEnable(&sp, false);
-				SP_ApplyMode(&sp);   /* un solo invio I2C per tutte le modifiche accumulate */
-
-				uint64_t del = 20000;	while (del--)	;
-
-				SP_SetAutoZeroEnable(&sp, true);
-				SP_ApplyMode(&sp);   /* un solo invio I2C per tutte le modifiche accumulate */
-
-				HAL_GPIO_WritePin(GPIOE, GPIO_PIN_8, GPIO_PIN_RESET);
-
-				count = 0;
-
-				printf("Autozero\n");
+				test_autozero = 0;
+				printf("Z ");
 			}
-		}
-	}
-}
 
-
-
-
-#if 0
-	while (1)
-	{
-	    static int16_t raw;
-	    static int16_t p10k;
-
-		HAL_Delay(100);
-
-		if (SP_DataReady(&sp))
-		{
-		    raw  = SP_GetRawPressure(&sp);
-		    p10k = SP_GetPressure_inH2Ox10000(&sp); /* parti su 10000 del FS corrente */
-
-		    printf("raw:%6hd inH20:%5i\n", raw, p10k);
-		    //printf("raw:%" PRIu16 "inH20:%" PRIu16 "\n", raw, p10k);
+			printf("raw:%6hd inH20:%5i\n", raw, p10k);
 		}
 
-		if (++count >= 20)
-		{
+	    if (BspButtonState == BUTTON_PRESSED)
+	    {
+	    	BspButtonState = BUTTON_RELEASED;
 
-			//SP_SetRange(&sp, SP_RANGE_10_INH2O);
-			//SP_SetAutoZeroMode(&sp, SP_AZ_STANDARD);
-			//SP_SetNoiseSuppression(&sp, false);
-			//SP_SetAutoZeroEnable(&sp, false);
-			//SP_ApplyMode(&sp);   /* un solo invio I2C per tutte le modifiche accumulate */
+	    	test_autozero = 1;
 
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_8, GPIO_PIN_SET);
 
 			SP_SetAutoZeroEnable(&sp, false);
-			SP_ApplyMode(&sp);   /* un solo invio I2C per tutte le modifiche accumulate */
+			while (SP_GetStatus(&sp) == SP_BUSY)	;
+			SP_ApplyMode(&sp);
 
-			{
-				uint64_t del = 20000;
-				while (del--)	;
-			}
-			//HAL_Delay(1);
+			delay_us(1900);
 
+			while (SP_GetStatus(&sp) == SP_BUSY)	;
 			SP_SetAutoZeroEnable(&sp, true);
-			SP_ApplyMode(&sp);   /* un solo invio I2C per tutte le modifiche accumulate */
+			SP_ApplyMode(&sp);
+
+			while (SP_GetStatus(&sp) == SP_BUSY)	;
 
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_8, GPIO_PIN_RESET);
-
-			HAL_Delay(2);
-
-			count = 0;
-
-			printf("Autozero\n");
-		}
-
-		SP_StartRead(&sp);
+	    }
 	}
-
-	SP_SetRange(&sp, SP_RANGE_2_0_INH2O);
-	SP_SetAutoZeroEnable(&sp, true);
-	SP_SetAutoZeroMode(&sp, SP_AZ_ZTRACK);
-	SP_ApplyMode(&sp);   /* un solo invio I2C per tutte le modifiche accumulate */
 }
-#endif
 
-
-static volatile uint16_t cnt10 = 0, cnt100 = 0;
+static volatile uint16_t cnt10 = 0, cnt100 = 0, cnt40;
 
 void periodic_elapsed(TIM_HandleTypeDef *htim)
 {
+	//HAL_GPIO_WritePin(GPIOE, GPIO_PIN_8, GPIO_PIN_SET);
 	ms_tick++;
 
-	if (cnt10++ >= 10U)
+	//SP_Status_t st = SP_StartRead(&sp);	/* qui è possibile anche controllare il ritorno SP_OK; SP_BUSY; SP_ERROR*/
+	//(void) st;
+
+
+	if (++cnt40 >= 40U)
+	{
+		//cnt40 = 0;
+		//SP_Status_t st = SP_StartRead(&sp);	/* qui è possibile anche controllare il ritorno SP_OK; SP_BUSY; SP_ERROR*/
+		//(void) st;
+	}
+
+	if (++cnt10 >= 10U)
 	{
 		cnt10 = 0;
+		//SP_Status_t st = SP_StartRead(&sp);	/* qui è possibile anche controllare il ritorno SP_OK; SP_BUSY; SP_ERROR*/
+		//(void) st;
+	}
+
+	if (++cnt100 >= 20U)
+	{
+		cnt100 = 0;
 		SP_Status_t st = SP_StartRead(&sp);	/* qui è possibile anche controllare il ritorno SP_OK; SP_BUSY; SP_ERROR*/
 		(void) st;
 	}
 
-	if (cnt100++ >= 100U)
-	{
-		cnt100 = 0;
-		//SP_Status_t st = SP_StartRead(&sp);	/* qui è possibile anche controllare il ritorno SP_OK; SP_BUSY; SP_ERROR*/
-		//(void) st;
-	}
+	//HAL_GPIO_WritePin(GPIOE, GPIO_PIN_8, GPIO_PIN_RESET);
 }
 
 

@@ -163,6 +163,9 @@ SP_Status_t SP_Init(SP_Handle_t *h, I2C_HandleTypeDef *hi2c, uint16_t i2c_addr,
  */
 SP_Status_t SP_ApplyMode(SP_Handle_t *h);
 
+SP_Status_t SP_GetStatus(SP_Handle_t *h);
+
+
 /* Avvia una lettura non bloccante della pressione (2 byte).
  * Da chiamare ad ogni ciclo del sampler (es. ogni 10ms). */
 SP_Status_t SP_StartRead(SP_Handle_t *h);
